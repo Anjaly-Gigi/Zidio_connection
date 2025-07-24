@@ -1,4 +1,3 @@
-
 package com.example.security;
 
 import org.springframework.context.annotation.Bean;
@@ -25,7 +24,7 @@ public class SecurityConfig {
 		
 		http.csrf().disable()
 		.authorizeRequests().
-		requestMatchers("/api/auth/**","/api/students/**").permitAll()
+		requestMatchers("/api/auth/**","/api/students/**","/api/recruiters/**").permitAll()
 		.anyRequest().authenticated()
 		.and()
 		.sessionManagement()
