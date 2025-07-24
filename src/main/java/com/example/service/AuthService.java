@@ -1,4 +1,4 @@
-package com.example.services;
+package com.example.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
