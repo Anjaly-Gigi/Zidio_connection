@@ -1,5 +1,9 @@
 package com.example.service;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.DTO.PaymentDTO;
 import com.example.entity.Payment;
+import com.example.Enum.PaymentStatus;
+import com.example.Enum.PaymentType;
 import com.example.repository.PaymentRepository;
 
 @Service
@@ -20,18 +26,18 @@ public class PaymentService {
         Payment pay = new Payment();
         pay.setUserId(dto.getUserId());
         pay.setPlanId(dto.getPlanId());
-        pay.setAmount(dto.getAmount());
+        pay.setAmount(BigDecimal.valueOf(dto.getAmount()));
         pay.setCurrency(dto.getCurrency());
-        pay.setPaymentType(dto.getPaymentType());
-        pay.setPaymentStatus(dto.getPaymentStatus());
-        pay.setPaymentDate(dto.getPaymentDate());
+        pay.setPaymentType(PaymentType.valueOf(dto.getPaymentType()));
+        pay.setPaymentStatus(PaymentStatus.valueOf(dto.getPaymentStatus()));
+        pay.setPaymentDate(LocalDateTime.ofInstant(dto.getPaymentDate().toInstant(), ZoneId.systemDefault()));
         pay.setTransactionId(dto.getTransactionId());
 
         Payment saved = paymentRepository.save(pay);
 
         dto.setId(saved.getId());
-        dto.setPaymentDate(saved.getPaymentDate());
-        dto.setPaymentStatus(saved.getPaymentStatus());
+        dto.setPaymentDate(Date.from(saved.getPaymentDate().atZone(ZoneId.systemDefault()).toInstant()));
+        dto.setPaymentStatus(saved.getPaymentStatus().toString());
         return dto;
     }
 
@@ -41,11 +47,11 @@ public class PaymentService {
             dto.setId(p.getId());
             dto.setUserId(p.getUserId());
             dto.setPlanId(p.getPlanId());
-            dto.setAmount(p.getAmount());
+            dto.setAmount(p.getAmount().doubleValue());
             dto.setCurrency(p.getCurrency());
-            dto.setPaymentType(p.getPaymentType());
-            dto.setPaymentStatus(p.getPaymentStatus());
-            dto.setPaymentDate(p.getPaymentDate());
+            dto.setPaymentType(p.getPaymentType().toString());
+            dto.setPaymentStatus(p.getPaymentStatus().toString());
+            dto.setPaymentDate(Date.from(p.getPaymentDate().atZone(ZoneId.systemDefault()).toInstant()));
             dto.setTransactionId(p.getTransactionId());
             return dto;
         }).collect(Collectors.toList());

@@ -1,5 +1,10 @@
 package com.example.repository;
 
-public class SubscriptionPlanRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import com.example.entity.SubscriptionPlan;
 
+@Repository
+public interface SubscriptionPlanRepository extends JpaRepository<SubscriptionPlan, Long> {
+    // Add custom queries here if needed
 }
