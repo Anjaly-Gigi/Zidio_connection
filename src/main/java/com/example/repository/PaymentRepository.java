@@ -5,8 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.example.entity.Payment;
 
 @Repository
-public interface PaymentRepository extends JpaRepository<Payment,Long>  {
-	
-	
-
+public interface PaymentRepository extends JpaRepository<Payment, Long> {
+    // You can define custom query methods here if needed
 }
