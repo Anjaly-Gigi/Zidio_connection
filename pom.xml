@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.0</version>
+		<version>3.1.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
@@ -29,15 +29,15 @@
 	<properties>
 		<java.version>17</java.version>
 		<spring-boot.version>2.7.18</spring-boot.version>
-        <spring-cloud.version>2021.0.9</spring-cloud.version>
+        <spring-cloud.version>2022.0.4</spring-cloud.version>
 	</properties>
 	
 	<dependencyManagement>
     <dependencies>
-        <dependency>
+            <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-dependencies</artifactId>
-            <version>${spring-cloud.version}</version>
+            <version>2022.0.3</version> <!-- Make sure version is compatible -->
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -130,10 +130,24 @@
     <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 </dependency>
 
+
 <dependency>
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-config-server</artifactId>
 </dependency>
+
+    <!-- Hibernate Core -->
+    <dependency>
+        <groupId>org.hibernate.orm</groupId>
+        <artifactId>hibernate-core</artifactId>
+        
+    </dependency>
+
+    <dependency>
+        <groupId>com.h2database</groupId>
+        <artifactId>h2</artifactId>
+        <scope>runtime</scope>
+    </dependency>
 
 
         
@@ -144,6 +158,10 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			 
+                <configuration>
+                   <mainClass>com.example.Job.Portal.JobPortalApplication</mainClass>
+                </configuration>
 			</plugin>
 
 		</plugins>
